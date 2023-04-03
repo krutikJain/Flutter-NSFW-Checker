@@ -1,22 +1,24 @@
-import 'package:demoapp/home.dart';
+import 'package:demoapp/model/HomeViewModel.dart';
+import 'package:demoapp/view/NudityView.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    final myViewModel = HomeViewModel(); // instantiate your ViewModel
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: myViewModel), // provide your ViewModel
+      ],
+      child: const MaterialApp(
+        title: 'My App',
+        home: HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }
